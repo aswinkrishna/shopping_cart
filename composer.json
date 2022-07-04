@@ -1,0 +1,19 @@
+{
+    "name": "ak/shopping_cart",
+    "authors": [
+        {
+            "name": "aswinkrishna",
+            "email": "aswin.krishn@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "./"
+        ]
+        
+    }
+}
