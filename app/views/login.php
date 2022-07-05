@@ -1,5 +1,5 @@
 <?php 
-include('__header.php'); 
+include('includes/__header.php'); 
 
 use App\Controllers\CommonController;
 
@@ -54,4 +54,4 @@ $contries = CommonController::getCountries();
 			</div>
 		</div>
 	</section><!--/form-->
-<?php include('__footer.php');?>
+<?php include('includes/__footer.php');?>

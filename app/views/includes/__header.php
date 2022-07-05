@@ -1,6 +1,4 @@
 <?php
-require_once 'config.php';
-
 use App\Controllers\CommonController;
 ?>
 <!DOCTYPE html>
@@ -38,6 +36,7 @@ use App\Controllers\CommonController;
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<!-- Custom Script -->
 	<script src="assets/js/register.js"></script>
+	<script src="assets/js/cart.js"></script>
 </head><!--/head-->
 
 <body>
@@ -73,18 +72,18 @@ use App\Controllers\CommonController;
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="index.php"><img src="assets/images/home/logo.png" alt="" /></a>
+							<a href="home"><img src="assets/images/home/logo.png" alt="" /></a>
 						</div>
 						
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								<?php if(CommonController::isLoggedIn()){
-									?><li><a href="logout.php"><i class="fa fa-lock"></i> Logout</a></li><?php
+									?><li><a href="logout"><i class="fa fa-lock"></i> Logout</a></li><?php
 								} else {
-									?><li><a href="login.php"><i class="fa fa-lock"></i> Login</a></li><?php
+									?><li><a href="login"><i class="fa fa-lock"></i> Login</a></li><?php
 								}
 								?>
 							</ul>
@@ -108,12 +107,8 @@ use App\Controllers\CommonController;
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="index.html" class="active">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Products</a></li>
-                                    </ul>
-                                </li> 
+								<li><a href="home" class="active">Home</a></li>
+								<li><a href="product">Products</a></li>
 							</ul>
 						</div>
 					</div>
