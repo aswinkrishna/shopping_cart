@@ -34,7 +34,7 @@ $(document).ready(function(){
 				} else if(response.status == 2) {
 					$(".error_message").html(response.message);
 				} else {
-					Swal.fire('Opps!','Please try again','warning');
+					Swal.fire('Opps!',response.message,'warning');
 				}
 			}            
 		});		
@@ -63,7 +63,7 @@ $(document).ready(function(){
 				data: $(form).serialize(),
 				success: function(response) {
 					if(response.status == 1) {
-						window.location.assign('index.php');
+						window.location.assign('/');
 					} else {
 						Swal.fire('Opps!', response.message,'warning');
 					}

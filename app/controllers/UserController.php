@@ -6,6 +6,7 @@ use App\Config\Connection;
 class UserController 
 {
     private $pdo;
+    
     public function __construct()
     {
         $this->pdo = Connection::make();
@@ -44,6 +45,8 @@ class UserController
             $user_data = $query->fetch($this->pdo::FETCH_OBJ);
             $_SESSION['user_id'] = $user_data->id;
             $_SESSION['user_name'] = $user_data->first_name." ".$user_data->last_name;
+
+            var_dump($_SESSION);exit;
             return ['status'=>1,"message"=>"login Successfull"];
         } else {
             return ['status'=>0,"message"=>"Invalid Credentials"];

@@ -1,5 +1,5 @@
 <?php 
-include('__header.php'); 
+include('includes/__header.php'); 
 
 use App\Controllers\CommonController;
 ?>
@@ -81,4 +81,4 @@ use App\Controllers\CommonController;
 			</div>
 		</div>
 	</section><!--/#do_action-->
-<?php include('__footer.php');?>
+<?php include('includes/__footer.php');?>
