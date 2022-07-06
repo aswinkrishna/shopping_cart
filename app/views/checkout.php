@@ -1,4 +1,19 @@
-<?php include('__header.php'); ?>
+<?php 
+include('includes/__header.php'); 
+
+use App\Controllers\CommonController;
+use App\Libraries\Cart;
+
+if (! CommonController::isLoggedIn()) {
+	header('Location:login');
+}
+
+$contries = CommonController::getCountries();
+$states = CommonController::getStates();
+
+$cart = new Cart();
+$cart_data = $cart->getCart();
+?>
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -8,62 +23,54 @@
 				</ol>
 			</div><!--/breadcrums-->
 
-
-
 			<div class="register-req">
 				<p>Shipping Address</p>
 			</div><!--/register-req-->
 
 			<div class="shopper-informations">
 				<div class="row">
-					<div class="col-sm-5 clearfix">
+					<div class="col-sm-6 clearfix">
 						<div class="bill-to">
-							<p>Bill To</p>
-							<div class="form-one">
-								<form>
-									<input type="text" placeholder="Company Name">
-									<input type="text" placeholder="Email*">
-									<input type="text" placeholder="Title">
-									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Middle Name">
-									<input type="text" placeholder="Last Name *">
-									<input type="text" placeholder="Address 1 *">
-									<input type="text" placeholder="Address 2">
-								</form>
-							</div>
 							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Zip / Postal Code *">
-									<select>
-										<option>-- Country --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
+								<form method="POST" id="shipping_address_form" action="./user_action.php">
+									<input type="hidden" name="form_action" value="add_address" />
+									<input type="text" name="shipping_full_name" placeholder="Full Name *">
+									<input type="text" name="shipping_address_line1" placeholder="Address 1 *">
+									<input type="text" name="shipping_address_line2" placeholder="Address 2">
+									<select name="shipping_country">
+										<option value="">-- Country --</option>
+										<?php
+										foreach($contries as $country){
+											?><option value="<?=$country->id?>"><?=$country->country_name?></option><?php
+										}
+										?>
 									</select>
-									<select>
-										<option>-- State / Province / Region --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
+									<select name="shipping_state">
+										<option value="">-- State / Province / Region --</option>
+										<?php
+										foreach($states as $state){
+											?><option value="<?=$state->id?>"><?=$state->state_name?></option><?php
+										}
+										?>
 									</select>
-									<input type="password" placeholder="Confirm password">
-									<input type="text" placeholder="Phone *">
-									<input type="text" placeholder="Mobile Phone">
-									<input type="text" placeholder="Fax">
+									<input type="text" name="shipping_city" placeholder="City">
+									<input type="text" name="shipping_zipcode" placeholder="Zip / Postal Code *">
+									<button type="submit" class="btn btn-default pull-right">Add Address</button>
 								</form>
 							</div>
 						</div>
-					</div>			
+					</div>	
+					<div class="col-sm-6 clearfix">
+						<div class="row">
+							<div class="col-sm-3">
+								<input type="radio" name="shiiping_address" value="1" />
+								<label>
+									<p>sadhasdd <br>
+									askdhgaisdasd</p>asdasd
+								</label>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="review-payment">
@@ -82,65 +89,60 @@
 						</tr>
 					</thead>
 					<tbody>
+					<?php foreach($cart_data->cart_items as $item): ?>
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="assets/images/cart/one.png" alt=""></a>
+								<a href="#"><img src="<?=PRODUCT_IMAGE_PATH.$item->product_image; ?>" alt="<?=$item->product_name?>" height="100"></a>
 							</td>
 							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
+								<h4><a href="#"><?=$item->product_name?></a></h4>
+								<p>Code: <?=$item->product_code?></p>
+								<?=($item->product_stock <= 0) ? '<span class="error">Out of Stock</span>' : '' ?>
 							</td>
 							<td class="cart_price">
-								<p>$59</p>
+								<p><?=CURRENCY.$item->product_sale_price?></p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<span class="cart_quantity_input">1</span>
-									
+									<input class="cart_quantity_input" type="text" name="quantity" value="<?=$item->product_quantity?>" autocomplete="off" size="2" readonly>
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							
-						</tr>
-						<tr>
-							<td colspan="4">&nbsp;</td>
-							<td colspan="2">
-								<table class="table table-condensed total-result">
-									<tr>
-										<td>Cart Sub Total</td>
-										<td>$59</td>
-									</tr>
-									<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
-									</tr>
-									<tr class="shipping-cost">
-										<td>Shipping Cost</td>
-										<td>Free</td>										
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td><span>$61</span></td>
-									</tr>
-								</table>
+								<p class="cart_total_price"><?=CURRENCY.$item->product_total?></p>
 							</td>
 						</tr>
+					<?php endforeach; ?>						
 					</tbody>
 				</table>
 			</div>
-			<div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</label>
-					</span>
-				</div>
 		</div>
 	</section> <!--/#cart_items-->
-<?php include('__footer.php');?>
+	<section id="do_action">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+				</div>
+				<div class="col-sm-6">
+					<h2>Cart Summary</h2>
+					<div class="total_area">
+						<ul>
+							<li>Cart Sub Total <span><?=CURRENCY.number_format($cart_data->sub_total,2)?></span></li>
+							<li>Shipping Cost <span><?=CURRENCY.number_format($cart_data->shipping_charge,2)?></span></li>
+							<li>Total <span><?=CURRENCY.number_format($cart_data->grand_total,2)?></span></li>
+						</ul>
+						<div class="payment-type">
+							<input type="radio" name="payment_type" id="payment_type_card" value="1" checked />
+							<label for="payment_type_card">Card Payment</label>
+							<input type="radio" name="payment_type" id="payment_type_cash" value="2" />
+							<label for="payment_type_cash">Cash on Delivery</label>
+						</div>
+						<?php if(CommonController::isLoggedIn()){
+							?><button id="place_order" class="btn btn-default check_out" href="checkout">Place Order</button><?php
+						}
+						?>						
+					</div>	
+				</div>
+			</div>
+		</div>
+	</section>
+<?php include('includes/__footer.php');?>

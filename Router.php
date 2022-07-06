@@ -13,7 +13,6 @@ class Router
 		$uri = trim($this->request);
 		$uri = explode("/", $uri);
 		if($uri[2] == trim($route, "/")) {
-
 			require $file . '.php';
 		}
 	}

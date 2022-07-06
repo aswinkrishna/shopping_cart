@@ -16,6 +16,7 @@ use App\Controllers\CommonController;
     <link href="assets/css/animate.css" rel="stylesheet">
 	<link href="assets/css/main.css" rel="stylesheet">
 	<link href="assets/css/responsive.css" rel="stylesheet">
+	<link href="assets/css/iao-alert.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -34,8 +35,10 @@ use App\Controllers\CommonController;
     <script src="assets/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="assets/js/iao-alert.jquery.js"></script>
 	<!-- Custom Script -->
 	<script src="assets/js/register.js"></script>
+	<script src="assets/js/shipping_address.js"></script>
 	<script src="assets/js/cart.js"></script>
 </head><!--/head-->
 

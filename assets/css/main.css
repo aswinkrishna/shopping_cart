@@ -2522,5 +2522,8 @@ h2.title {
 .error{
   color: red;
 }
+.payment-type{
+  margin: 40px;
+}
 
 
