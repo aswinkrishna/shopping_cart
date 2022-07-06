@@ -34,7 +34,7 @@ $contries = CommonController::getCountries();
 							<input type="text" name="first_name" placeholder="First Name"/>
 							<input type="text" name="last_name" placeholder="Last Name"/>
 							<select class="form-control" name="country">
-								<option>- - Select Country - -</option>
+								<option value="">- - Select Country - -</option>
 								<?php
 								foreach($contries as $country){
 									?><option value="<?=$country->id?>"><?=$country->country_name?></option><?php

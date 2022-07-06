@@ -63,7 +63,7 @@ $(document).ready(function(){
 				data: $(form).serialize(),
 				success: function(response) {
 					if(response.status == 1) {
-						window.location.assign('/');
+						window.location.assign('home');
 					} else {
 						Swal.fire('Opps!', response.message,'warning');
 					}
