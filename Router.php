@@ -10,9 +10,10 @@ class Router
 	}
 	public function get($route, $file)
 	{
-		$uri = trim($this->request);
+		$parameter_split = explode("?",$this->request);
+		$uri = trim($parameter_split[0]);
 		$uri = explode("/", $uri);
-		if($uri[2] == trim($route, "/")) {
+		if ($uri[2] == trim($route, "/")) {
 			require $file . '.php';
 		}
 	}
