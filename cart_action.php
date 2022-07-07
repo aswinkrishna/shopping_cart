@@ -27,7 +27,7 @@ if (!empty($_POST)) {
             echo json_encode($response);
             break;
         case 'place_order':            
-            $response = $cart->placeOrder($_POST['payment_type']);
+            $response = $cart->placeOrder($_POST);
             echo json_encode($response);
             break;
         default:

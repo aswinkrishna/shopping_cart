@@ -1,18 +1,20 @@
-<?php 
+<?php
 include('includes/__header.php'); 
+if (!isset($_SESSION['user_id'])) {
+	header('Location:login');
+}
 
 use App\Controllers\CommonController;
 use App\Libraries\Cart;
-
-if (! CommonController::isLoggedIn()) {
-	header('Location:login');
-}
+use App\Controllers\UserController;
 
 $contries = CommonController::getCountries();
 $states = CommonController::getStates();
 
 $cart = new Cart();
 $cart_data = $cart->getCart();
+$user = new UserController();
+$shipping_addresses = $user->getAllShippingAddresses();
 ?>
 	<section id="cart_items">
 		<div class="container">
@@ -61,14 +63,18 @@ $cart_data = $cart->getCart();
 						</div>
 					</div>	
 					<div class="col-sm-6 clearfix">
-						<div class="row">
-							<div class="col-sm-3">
-								<input type="radio" name="shiiping_address" value="1" />
+						<div class="row" id="shipping_address_area">
+						<?php foreach ($shipping_addresses as $address):?>
+							<div class="col-sm-4 address-box">
 								<label>
-									<p>sadhasdd <br>
-									askdhgaisdasd</p>asdasd
+									<input type="radio" name="shiiping_address" value="<?=$address->id?>" <?=($address->is_default == 1) ? 'checked' : '' ?> />
+									<p><?=$address->full_name?><br>
+									<?=$address->address_line_1?><br>
+									<?=($address->address_line_2 != "") ? $address->address_line_2."<br>":'' ?>
+									<?=$address->city.", ".$address->state_name.", ".$address->country_name?>
 								</label>
 							</div>
+						<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
@@ -104,7 +110,7 @@ $cart_data = $cart->getCart();
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<input class="cart_quantity_input" type="text" name="quantity" value="<?=$item->product_quantity?>" autocomplete="off" size="2" readonly>
+									<input class="cart_quantity_input no-border" type="text" name="quantity" value="<?=$item->product_quantity?>" autocomplete="off" size="2" readonly>
 								</div>
 							</td>
 							<td class="cart_total">

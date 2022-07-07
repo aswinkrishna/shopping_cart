@@ -40,6 +40,10 @@ use App\Controllers\CommonController;
 	<script src="assets/js/register.js"></script>
 	<script src="assets/js/shipping_address.js"></script>
 	<script src="assets/js/cart.js"></script>
+	<script>	
+		var CURRENCY = '<?=CURRENCY?>';
+        var PRODUCT_IMAGE_PATH  = '<?=PRODUCT_IMAGE_PATH?>';
+	</script>
 </head><!--/head-->
 
 <body>

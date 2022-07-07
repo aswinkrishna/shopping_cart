@@ -16,7 +16,7 @@ $cart_data = $cart->getCart();
 				</ol>
 			</div>
 			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
+				<table class="table table-condensed" id="cart_list">
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Item</td>
@@ -28,7 +28,9 @@ $cart_data = $cart->getCart();
 						</tr>
 					</thead>
 					<tbody>
-					<?php foreach($cart_data->cart_items as $item): ?>
+					<?php
+					if (!empty( (array) $cart_data->cart_items )) { 
+						foreach($cart_data->cart_items as $item) { ?>
 						<tr>
 							<td class="cart_product">
 								<a href="#"><img src="<?=PRODUCT_IMAGE_PATH.$item->product_image; ?>" alt="<?=$item->product_name?>" height="100"></a>
@@ -43,7 +45,7 @@ $cart_data = $cart->getCart();
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
 									<a class="cart_quantity_down" href="javascript:" data-product-id="<?=$item->product_id?>" data-cart-id="<?=$item->cart_id?>" data-quantity="1"> - </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="<?=$item->product_quantity?>" autocomplete="off" size="2" readonly>
+									<input class="cart_quantity_input no-border" type="text" name="quantity" value="<?=$item->product_quantity?>" autocomplete="off" size="2" readonly>
 									<a class="cart_quantity_up" href="javascript:" data-product-id="<?=$item->product_id?>" data-cart-id="<?=$item->cart_id?>" data-quantity="1"> + </a>
 								</div>
 							</td>
@@ -51,10 +53,19 @@ $cart_data = $cart->getCart();
 								<p class="cart_total_price"><?=CURRENCY.$item->product_total?></p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								<a class="cart_quantity_delete" href="javascript:" data-product-id="<?=$item->product_id?>" data-cart-id="<?=$item->cart_id?>"><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
-					<?php endforeach; ?>
+					<?php 
+						}
+					} else {
+						?>
+						<tr>
+							<td colspan="5" align="center">Cart is Empty</td>
+						</tr>
+						<?php
+					} 
+					?>
 					</tbody>
 				</table>
 			</div>
@@ -70,14 +81,14 @@ $cart_data = $cart->getCart();
 					<h2>Cart Summary</h2>
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span><?=CURRENCY.number_format($cart_data->sub_total,2)?></span></li>
-							<li>Shipping Cost <span><?=CURRENCY.number_format($cart_data->shipping_charge,2)?></span></li>
-							<li>Total <span><?=CURRENCY.number_format($cart_data->grand_total,2)?></span></li>
+							<li>Cart Sub Total <span class="cart_sub_total"><?=CURRENCY.number_format($cart_data->sub_total,2)?></span></li>
+							<li>Shipping Cost <span class="cart_shipping_charge"><?=CURRENCY.number_format($cart_data->shipping_charge,2)?></span></li>
+							<li>Total <span class="cart_grand_total"><?=CURRENCY.number_format($cart_data->grand_total,2)?></span></li>
 						</ul>
 						<?php if(CommonController::isLoggedIn()){
 							?><a class="btn btn-default check_out" href="checkout">Check Out</a><?php
 						} else {
-							?><a class="btn btn-default check_out" href="login?redirect=checkout.php">Check Out</a><?php
+							?><a class="btn btn-default check_out" href="login?redirect=checkout">Check Out</a><?php
 						}
 						?>						
 					</div>

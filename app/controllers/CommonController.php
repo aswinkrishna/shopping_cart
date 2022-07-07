@@ -12,6 +12,7 @@ class CommonController
         $stmt->execute();
         return $stmt->fetchAll($pdo::FETCH_OBJ);
     }
+    
     public static function getStates()
     {
         $pdo = Connection::make();
@@ -19,6 +20,7 @@ class CommonController
         $stmt->execute();
         return $stmt->fetchAll($pdo::FETCH_OBJ);
     }
+
     public static function isLoggedIn()
     {
         if (isset($_SESSION['user_id'])) {
@@ -27,6 +29,7 @@ class CommonController
             return false;
         }
     }
+
     public static function getUserData()
     {
         if (isset($_SESSION['user_id'])) {
@@ -40,6 +43,16 @@ class CommonController
                 return (object) ["user_id" => 0, "anonimous_id" => $_COOKIE['anonimous_id']];
             }            
         }
+    }
+
+    public static function encrypt($string)
+    {
+        return base64_encode($string);
+    }
+
+    public static function decrypt($string)
+    {
+        return base64_decode($string);
     }
 }
 ?>

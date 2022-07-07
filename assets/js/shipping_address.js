@@ -30,6 +30,7 @@ $(document).ready(function(){
                 success: function(response) {
                     if(response.status == 1) {
                         Swal.fire('Good job!',response.message,'success');
+                        loadUserAddresses();
                     } else if(response.status == 2) {
                         $(".error_message").html(response.message);
                     } else {
@@ -49,8 +50,23 @@ $(document).ready(function(){
             dataType: 'json',
             data: {form_action: "get_all_addresses"},
             success: function(response) {
+                var address_html = "";
                 if (response.status == 1) {
-                    
+                    $.each(response.data, function( index, address ) {
+                        var is_default = address.is_default == 1 ? 'checked' : '';
+                        var address_line_2 = address.address_line_2 != "" ? address.address_line_2 + "<br>" : '';
+                        address_html += `<div class="col-sm-4 address-box">
+                                            <label>
+                                                <input type="radio" name="shiiping_address" value="${address.id}" ${is_default} />
+                                                <p>${address.full_name}<br>
+                                                ${address.address_line_1}<br>
+                                                ${address_line_2}
+                                                ${address.city},${address.state_name}, ${address.country_name}
+                                            </label>
+                                        </div>`;
+                    });
+
+                    $("#shipping_address_area").html(address_html);
                 }
             }            
         });	
