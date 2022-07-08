@@ -266,6 +266,6 @@ class CartController
             $temp_order_data = $temp_order_query->fetch($this->pdo::FETCH_OBJ);
             $this->pdo->prepare("DELETE from `temp_orders` where user_id = :user_id")->execute(['user_id' => $this->user->user_id]);
             $this->pdo->prepare("DELETE from `temp_order_details`  where order_id = :order_id")->execute(["order_id" => $temp_order_data->id]);
-        }
+        } 
     }
 }
