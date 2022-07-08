@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controllers;
 
 use App\Config\Connection;
@@ -24,7 +23,7 @@ class PaymentController
         $query = $this->pdo->prepare("SELECT * from temp_orders where transaction_no = :transaction_no");
         $query->execute(["transaction_no" => $transaction_no]);
         $order_data = $query->fetch($this->pdo::FETCH_OBJ);
-        $amount = $order_data->total_price;
+        $amount = (float) $order_data->total_price;
         try {
             // retrieve JSON from POST body
             // $jsonStr = file_get_contents('php://input');
@@ -43,13 +42,11 @@ class PaymentController
                 'automatic_payment_methods' => [
                     'enabled' => true,
                 ],
-            ]);
-            
+            ]);            
             $output = [
                 'clientSecret' => $paymentIntent->client_secret,
                 "transaction_no" => $jsonObj->transaction_no,
             ];
-
             $payment_data = [
                 "user_id" => $this->user->user_id,
                 "transaction_no" => $transaction_no,
@@ -59,7 +56,6 @@ class PaymentController
             ];
             $payment_query = $this->pdo->prepare('INSERT INTO `payments`(`user_id`, `transaction_no`, `payment_response`, `pay_amount`, `created_at`) VALUES (:user_id, :transaction_no, :payment_response, :pay_amount, :created_at)');
             $payment_query->execute($payment_data);
-
             return $output;
         } catch (\Error $e) {
             http_response_code(500);

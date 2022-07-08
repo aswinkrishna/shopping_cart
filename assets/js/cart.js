@@ -55,34 +55,38 @@ $(document).ready(function(){
                 var cart_html = "";
                 if (response.status == 1) {
                     $.iaoAlert({msg: response.message, type: "success", mode: "light",});
-
-                    $.each(response.data.cart_items, function( index, item ) {
-                        cart_html += `<tr>
-                                        <td class="cart_product">
-                                            <a href="#"><img src="${PRODUCT_IMAGE_PATH}${item.product_image}" alt="${item.product_name}" height="100"></a>
-                                        </td>
-                                        <td class="cart_description">
-                                            <h4><a href="#">${item.product_name}</a></h4>
-                                            <p>Code: ${item.product_code}</p>
-                                        </td>
-                                        <td class="cart_price">
-                                            <p>${CURRENCY}${item.product_sale_price}</p>
-                                        </td>
-                                        <td class="cart_quantity">
-                                            <div class="cart_quantity_button">
-                                                <a class="cart_quantity_down" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}" data-quantity="1"> - </a>
-                                                <input class="cart_quantity_input no-border" type="text" name="quantity" value="${item.product_quantity}" autocomplete="off" size="2" readonly>
-                                                <a class="cart_quantity_up" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}" data-quantity="1"> + </a>
-                                            </div>
-                                        </td>
-                                        <td class="cart_total">
-                                            <p class="cart_total_price">${CURRENCY}${item.product_total}</p>
-                                        </td>
-                                        <td class="cart_delete">
-                                            <a class="cart_quantity_delete" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}"><i class="fa fa-times"></i></a>
-                                        </td>
-                                    </tr>`;
-                    });
+                    if (Object.keys(response.data.cart_items).length > 0) {
+                        $.each(response.data.cart_items, function( index, item ) {
+                            cart_html += `<tr>
+                                            <td class="cart_product">
+                                                <a href="#"><img src="${PRODUCT_IMAGE_PATH}${item.product_image}" alt="${item.product_name}" height="100"></a>
+                                            </td>
+                                            <td class="cart_description">
+                                                <h4><a href="#">${item.product_name}</a></h4>
+                                                <p>Code: ${item.product_code}</p>
+                                            </td>
+                                            <td class="cart_price">
+                                                <p>${CURRENCY}${item.product_sale_price}</p>
+                                            </td>
+                                            <td class="cart_quantity">
+                                                <div class="cart_quantity_button">
+                                                    <a class="cart_quantity_down" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}" data-quantity="1"> - </a>
+                                                    <input class="cart_quantity_input no-border" type="text" name="quantity" value="${item.product_quantity}" autocomplete="off" size="2" readonly>
+                                                    <a class="cart_quantity_up" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}" data-quantity="1"> + </a>
+                                                </div>
+                                            </td>
+                                            <td class="cart_total">
+                                                <p class="cart_total_price">${CURRENCY}${item.product_total}</p>
+                                            </td>
+                                            <td class="cart_delete">
+                                                <a class="cart_quantity_delete" href="javascript:" data-product-id="${item.product_id}" data-cart-id="${item.cart_id}"><i class="fa fa-times"></i></a>
+                                            </td>
+                                        </tr>`;
+                        });
+                    } else {
+                        $(".empty-cart-hide").hide();
+                        $(".empty-cart-show").show();
+                    }
                     $("#cart_list tbody").html(cart_html);
                     var cart_sub_total = response.data.sub_total.toFixed(2);
                     var cart_shipping_charge = response.data.shipping_charge.toFixed(2);

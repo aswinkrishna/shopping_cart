@@ -27,6 +27,7 @@ class Cart
             $sql .= " and cart.anonimous_id = :anonimous_id";
             $condition = ["anonimous_id" => $this->user->anonimous_id];
         }
+        $sql .= " group by cart.product_id";
         $cart_product_query = $this->pdo->prepare($sql);
         $cart_product_query->execute($condition);
         $cart_items = $cart_product_query->fetchAll($this->pdo::FETCH_OBJ);

@@ -15,7 +15,11 @@ $cart_data = $cart->getCart();
 				  <li class="active">Shopping Cart</li>
 				</ol>
 			</div>
-			<div class="table-responsive cart_info">
+			<div class="empty-cart-show text-center" style="<?=(empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
+				<img src="assets/images/empty-cart.png"  height="300"/>
+				<h3>Cart is empty</h3>
+			</div>
+			<div class="table-responsive cart_info empty-cart-hide" style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">				
 				<table class="table table-condensed" id="cart_list">
 					<thead>
 						<tr class="cart_menu">
@@ -72,7 +76,7 @@ $cart_data = $cart->getCart();
 		</div>
 	</section> <!--/#cart_items-->
 
-	<section id="do_action">
+	<section id="do_action" class="empty-cart-hide" style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">

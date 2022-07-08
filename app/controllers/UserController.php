@@ -11,6 +11,7 @@ class UserController
     {
         $this->pdo = Connection::make();
     }
+
     public function createUser($post_data = [])
     {        
         $query = $this->pdo->prepare("SELECT * from users where user_email =:email_address");
@@ -37,6 +38,7 @@ class UserController
             return ['status'=>2,"message"=>"Email is already Exists !"];
         }
     }
+
     public function userLogin($post_data = [])
     {
         $query = $this->pdo->prepare("SELECT * from users where user_email= :email_address and user_password = :user_password");
@@ -55,7 +57,7 @@ class UserController
         }
     }
 
-    public function addNewShippingAddress($post_data = [])
+    public function addNewShippingAddress($post_data)
     {
         $insert_data = [
             "user_id" => $_SESSION['user_id'],
@@ -77,7 +79,7 @@ class UserController
             $shipping_address_query->execute($insert_data);
             $this->pdo->commit();
             return ["status" => 1, "message" => "New address added"];
-        } catch(\PDOException $e) {
+        } catch (\PDOException $e) {
             $this->pdo->rollBack();
             return ["status" => 0, "message" => "Please try again !"];
         }

@@ -24,12 +24,15 @@ $shipping_addresses = $user->getAllShippingAddresses();
 				  <li class="active">Check out</li>
 				</ol>
 			</div><!--/breadcrums-->
-
-			<div class="register-req">
+			<div class="empty-cart-show text-center" style="<?=(empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
+				<img src="assets/images/empty-cart.png"  height="300"/>
+				<h3>Cart is empty</h3>
+			</div>
+			<div class="register-req" style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 				<p>Shipping Address</p>
 			</div><!--/register-req-->
 
-			<div class="shopper-informations">
+			<div class="shopper-informations" style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 				<div class="row">
 					<div class="col-sm-6 clearfix">
 						<div class="bill-to">
@@ -79,11 +82,11 @@ $shipping_addresses = $user->getAllShippingAddresses();
 					</div>
 				</div>
 			</div>
-			<div class="review-payment">
+			<div class="review-payment"  style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 				<h2>Review & Payment</h2>
 			</div>
 
-			<div class="table-responsive cart_info">
+			<div class="table-responsive cart_info"  style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
@@ -123,7 +126,7 @@ $shipping_addresses = $user->getAllShippingAddresses();
 			</div>
 		</div>
 	</section> <!--/#cart_items-->
-	<section id="do_action">
+	<section id="do_action" style="<?=(!empty((array) $cart_data->cart_items )) ? '':'display:none'; ?>">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
