@@ -10,6 +10,7 @@ class CartController
     private $pdo;
     private $user;
     public $cart;
+    
     public function __construct()
     {
         $this->pdo = Connection::make();
@@ -88,6 +89,13 @@ class CartController
             $parameters['qty'] = $qty;
             $cart_query = $this->pdo->prepare($sql);
             $cart_query->execute($parameters);
+            // checking quantity is zero
+            $check_quantity = $this->pdo->prepare("SELECT product_quantity from cart where product_id = :product_id and id = :cart_id");
+            $check_quantity->execute(["cart_id" =>$cart_id, "product_id" => $product_id]);
+            $result = $check_quantity->fetch($this->pdo::FETCH_OBJ);
+            if ($result->product_quantity == 0) {
+                return $this->removeCartItem($product_id);
+            }
             return ["status" => "1", "message" => "Product quantity reduced in Cart", "data" => $this->cart->getCart()];
         } else {
             return ["status" => "0", "message" => "Product is not available in your Cart"];
