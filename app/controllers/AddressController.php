@@ -6,19 +6,18 @@ use App\Models\AddressModel;
 
 class AddressController
 {
-    private $pdo;
     private $user;
     private $addressModel;
 
     public function __construct()
     {
-        $this->pdo = Connection::make();
         $this->user = (object) CommonController::getUserData();
         $this->addressModel = new AddressModel();
     }
 
-    public function addNewShippingAddress($post_data)
+    public function create()
     {
+        $post_data = $_POST;
         $addressData = [
             "user_id" => $_SESSION['user_id'],
             "full_name" => $post_data['shipping_full_name'],
@@ -35,7 +34,7 @@ class AddressController
         return $this->addressModel->addNewAddress($addressData);
     }
 
-    public function getAllShippingAddresses()
+    public function fetch()
     {
         $result = $this->addressModel->getAllAddress(["user_id" => $this->user->userId]);
         return $result;

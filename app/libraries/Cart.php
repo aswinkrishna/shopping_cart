@@ -1,19 +1,16 @@
 <?php
 namespace App\Libraries;
 
-use App\Config\Connection;
 use App\Controllers\CommonController;
 use App\Models\CartModel;
 
 class Cart
 {
-    private $pdo;
     private $user;
     private $cartModel;
 
     public function __construct()
     {
-        $this->pdo = Connection::make();
         $this->user = (object) CommonController::getUserData();
         $this->cartModel = new CartModel();
     }

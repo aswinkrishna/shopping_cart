@@ -1,15 +1,13 @@
 <?php
 namespace App\Models;
 
-use App\Config\Connection;
+use App\Core\CoreModel;
 
-class AddressModel
+class AddressModel extends CoreModel
 {
-    private $pdo;
-
     public function __construct()
     {
-        $this->pdo = Connection::make();    
+        parent::__construct();
     }
 
     public function addNewAddress($addressData)

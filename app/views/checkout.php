@@ -14,7 +14,7 @@ $states = CommonController::getStates();
 $cart = new Cart();
 $cart_data = $cart->getCart();
 $address = new AddressController();
-$shipping_addresses = $address->getAllShippingAddresses();
+$shipping_addresses = $address->fetch();
 ?>
 	<section id="cart_items">
 		<div class="container">
@@ -37,8 +37,9 @@ $shipping_addresses = $address->getAllShippingAddresses();
 					<div class="col-sm-6 clearfix">
 						<div class="bill-to">
 							<div class="form-two">
-								<form method="POST" id="shipping_address_form" action="./user_action.php">
-									<input type="hidden" name="form_action" value="add_address" />
+								<form method="POST" id="shipping_address_form" action="action.php">
+									<input type="hidden" name="action_method" value="create" />
+									<input type="hidden" name="class" value="AddressController" />
 									<input type="text" name="shipping_full_name" placeholder="Full Name *">
 									<input type="text" name="shipping_address_line1" placeholder="Address 1 *">
 									<input type="text" name="shipping_address_line2" placeholder="Address 2">

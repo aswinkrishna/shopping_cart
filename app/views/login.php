@@ -11,8 +11,9 @@ $contries = CommonController::getCountries();
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="user_action.php" method="POST" id="login_form">
-							<input type="hidden" name="form_action" value="login" />
+						<form action="action.php" method="POST" id="login_form">
+							<input type="hidden" name="action_method" value="login" />
+							<input type="hidden" name="class" value="AuthController" />
 							<input type="email" name="email_address" placeholder="Email Address" />
 							<input type="password" name="user_password" placeholder="Password" />
 							<button type="submit" class="btn btn-default">Login</button>
@@ -25,8 +26,9 @@ $contries = CommonController::getCountries();
 				<div class="col-sm-4">
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
-						<form action="user_action.php" method="POST" id="register_form">
-							<input type="hidden" name="form_action" value="new_user" />
+						<form action="action.php" method="POST" id="register_form">
+							<input type="hidden" name="action_method" value="create" />
+							<input type="hidden" name="class" value="UserController" />
 							<input type="text" name="first_name" placeholder="First Name"/>
 							<input type="text" name="last_name" placeholder="Last Name"/>
 							<select class="form-control" name="country">

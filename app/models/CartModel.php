@@ -1,17 +1,16 @@
 <?php 
 namespace App\Models;
 
-use App\Config\Connection;
 use App\Controllers\CommonController;
+use App\Core\CoreModel;
 
-class CartModel
+class CartModel extends CoreModel
 {
-    private $pdo;
     private $user;
 
     public function __construct()
     {
-        $this->pdo = Connection::make();
+        parent::__construct();
         $this->user = (object) CommonController::getUserData();
     }
 
