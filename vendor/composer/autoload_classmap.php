@@ -13,6 +13,7 @@ return array(
     'App\\Controllers\\ProductController' => $baseDir . '/app/controllers/ProductController.php',
     'App\\Controllers\\UserController' => $baseDir . '/app/controllers/UserController.php',
     'App\\Libraries\\Cart' => $baseDir . '/app/libraries/Cart.php',
+    'App\\Models\\CartModel' => $baseDir . '/app/models/CartModel.php',
     'ComposerAutoloaderInitf5f0078eae4f59c24511c2c9ded7d1ce' => $vendorDir . '/composer/autoload_real.php',
     'Composer\\Autoload\\ClassLoader' => $vendorDir . '/composer/ClassLoader.php',
     'Composer\\Autoload\\ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce' => $vendorDir . '/composer/autoload_static.php',
