@@ -34,6 +34,7 @@ class ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce
 
     public static $classMap = array (
         'App\\Config\\Connection' => __DIR__ . '/../..' . '/app/config/connection.php',
+        'App\\Controllers\\AddressController' => __DIR__ . '/../..' . '/app/controllers/AddressController.php',
         'App\\Controllers\\CartController' => __DIR__ . '/../..' . '/app/controllers/CartController.php',
         'App\\Controllers\\CommonController' => __DIR__ . '/../..' . '/app/controllers/CommonController.php',
         'App\\Controllers\\OrderController' => __DIR__ . '/../..' . '/app/controllers/OrderController.php',
@@ -41,9 +42,11 @@ class ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce
         'App\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/controllers/ProductController.php',
         'App\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
         'App\\Libraries\\Cart' => __DIR__ . '/../..' . '/app/libraries/Cart.php',
+        'App\\Models\\AddressModel' => __DIR__ . '/../..' . '/app/models/AddressModel.php',
         'App\\Models\\CartModel' => __DIR__ . '/../..' . '/app/models/CartModel.php',
         'App\\Models\\OrderModel' => __DIR__ . '/../..' . '/app/models/OrderModel.php',
         'App\\Models\\ProductModel' => __DIR__ . '/../..' . '/app/models/ProductModel.php',
+        'App\\Models\\UserModel' => __DIR__ . '/../..' . '/app/models/UserModel.php',
         'ComposerAutoloaderInitf5f0078eae4f59c24511c2c9ded7d1ce' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce' => __DIR__ . '/..' . '/composer/autoload_static.php',

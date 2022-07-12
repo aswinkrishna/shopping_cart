@@ -1,9 +1,11 @@
 <?php
 require_once './config.php';
 
+use App\Controllers\AddressController;
 use App\Controllers\UserController;
 
 $user = new UserController();
+$address = new AddressController();
 if (!empty($_POST)) {
     $action = $_POST['form_action'];
     switch ($action) {
@@ -16,11 +18,11 @@ if (!empty($_POST)) {
             echo json_encode($response);
             break;
         case 'add_address':
-            $response = $user->addNewShippingAddress($_POST);
+            $response = $address->addNewShippingAddress($_POST);
             echo json_encode($response);
             break;  
         case 'get_all_addresses':
-            $response = $user->getAllShippingAddresses();
+            $response = $address->getAllShippingAddresses();
             echo json_encode(["status" => 1, "message" => "Success", "data" => $response]);
             break;          
         default:

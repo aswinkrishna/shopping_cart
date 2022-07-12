@@ -18,10 +18,10 @@ class PaymentController
  
     public function stripePayment($jsonObj)
     {
-        $transaction_no = decrypt($jsonObj->transaction_no);
+        $transactionNo = decrypt($jsonObj->transaction_no);
         // get order Data
         $query = $this->pdo->prepare("SELECT * from temp_orders where transaction_no = :transaction_no");
-        $query->execute(["transaction_no" => $transaction_no]);
+        $query->execute(["transaction_no" => $transactionNo]);
         $order_data = $query->fetch($this->pdo::FETCH_OBJ);
         $amount = (float) $order_data->total_price;
         try {
@@ -38,7 +38,7 @@ class PaymentController
                 'setup_future_usage' => 'off_session',
                 'amount' => $amount * 100,
                 'currency' => 'inr',
-                "metadata" => ["transaction_no" => $transaction_no],
+                "metadata" => ["transaction_no" => $transactionNo],
                 'automatic_payment_methods' => [
                     'enabled' => true,
                 ],
@@ -48,8 +48,8 @@ class PaymentController
                 "transaction_no" => $jsonObj->transaction_no,
             ];
             $payment_data = [
-                "user_id" => $this->user->user_id,
-                "transaction_no" => $transaction_no,
+                "user_id" => $this->user->userId,
+                "transaction_no" => $transactionNo,
                 "payment_response" => json_encode($paymentIntent),
                 "pay_amount" => $amount,
                 "created_at" => date('Y-m-d H:i:s'),
