@@ -21,9 +21,11 @@ class CartController
         $this->cart = new Cart();
     }
 
-    public function addCartItem($productId, $qty)
+    public function addCartItem()
     {
-        if($response = $this->validatingProduct($productId)) {
+        $productId = $_POST['product_id'];
+        $qty = $_POST['qty'];
+        if ($response = $this->validatingProduct($productId)) {
             return $response;
         }
 
@@ -43,37 +45,44 @@ class CartController
         }
     }
 
-    public function increaseCartItem($cart_id, $product_id, $qty)
+    public function increaseCartItem()
     {
-        if (empty($this->checkCartProductExists($product_id))) {
+        $cartId = $_POST['cart_id'];
+        $productId = $_POST['product_id'];
+        $qty = $_POST['qty'];
+        if (empty($this->checkCartProductExists($productId))) {
             return ["status" => "0", "message" => "Product is not available in your Cart"];
         }
         $parameters = [
-            'cart_id' => $cart_id,
-            'product_id' => $product_id,
+            'cart_id' => $cartId,
+            'product_id' => $productId,
             'qty' => $qty
         ];
         $this->cartModel->increaseCartItem($parameters);
         return ["status" => "1", "message" => "Product quantity updated in Cart", "data" => $this->cart->getCart()];
     }
     
-    public function reduceCartItem($cart_id, $product_id, $qty)
+    public function reduceCartItem()
     {
-        if (empty($this->checkCartProductExists($product_id))) {
+        $cartId = $_POST['cart_id'];
+        $productId = $_POST['product_id'];
+        $qty = $_POST['qty'];
+        if (empty($this->checkCartProductExists($productId))) {
             return ["status" => "0", "message" => "Product is not available in your Cart"];
         } 
         $parameters = [
-            'cart_id' => $cart_id,
-            'product_id' => $product_id,
+            'cart_id' => $cartId,
+            'product_id' => $productId,
             'qty' => $qty,
         ];
         $this->cartModel->reduceCartItem($parameters);
         return ["status" => "1", "message" => "Product quantity reduced in Cart", "data" => $this->cart->getCart()];
     }
 
-    public function removeCartItem($product_id)
+    public function removeCartItem()
     {
-        $cart_product = $this->checkCartProductExists($product_id);
+        $productId = $_POST['product_id'];
+        $cart_product = $this->checkCartProductExists($productId);
         if (empty($cart_product)) {     
             return ["status" => "0", "message" => "Product is not available in your Cart"];
         }

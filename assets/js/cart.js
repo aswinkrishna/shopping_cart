@@ -6,7 +6,7 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: "cart_action.php",
-            data: {product_id:product_id, qty:qty, action:"add"},
+            data: {product_id:product_id, qty:qty, action:"addCartItem"},
             dataType: "json",
             success:function(response){
                 $.iaoAlert({msg: response.message, type: "success", mode: "light",});
@@ -22,7 +22,7 @@ $(document).ready(function(){
         var cart_id = $(this).data('cart-id');
         var quantity = $(this).data('quantity');
         $(this).parent().find(".cart_quantity_input").val(purchase_count);
-        loadCart(cart_id, product_id, quantity, "increase");
+        loadCart(cart_id, product_id, quantity, "increaseCartItem");
     });
 
     // decrease cart quantity
@@ -33,14 +33,14 @@ $(document).ready(function(){
         var cart_id = $(this).data('cart-id');
         var quantity = $(this).data('quantity');
         $(this).parent().find(".cart_quantity_input").val(purchase_count);
-        loadCart(cart_id, product_id, quantity, "reduce");
+        loadCart(cart_id, product_id, quantity, "reduceCartItem");
     });
 
     // remove product from cart
     $("body").delegate(".cart_quantity_delete", "click", function() {
         var product_id = $(this).data('product-id');
         var cart_id = $(this).data('cart-id');
-        loadCart(cart_id, product_id, 0, "remove");
+        loadCart(cart_id, product_id, 0, "removeCartItem");
     });
 
     // load cart
@@ -109,8 +109,8 @@ $(document).ready(function(){
             var shipping_address_id = $("[name=shiiping_address]:checked").val();
             $.ajax({
                 method: "POST",
-                url: "cart_action.php",
-                data: {action: "place_order", payment_type: $("[name=payment_type]:checked").val(),shipping_address_id:shipping_address_id},
+                url: "order_action.php",
+                data: {action: "placeOrder", payment_type: $("[name=payment_type]:checked").val(),shipping_address_id:shipping_address_id},
                 dataType: "json",
                 success:function(response){
                     if (response.status == 1) {

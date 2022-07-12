@@ -21,8 +21,9 @@ class OrderController
         $this->orderModel = new OrderModel();
     }
 
-    public function placeOrder($post_data)
+    public function placeOrder()
     {
+        $postData = $_POST;
         $cart_data = $this->cart->getCart();
         $this->orderModel->clearTempOrder();
         if ($cart_data->out_of_stock_product == 1) {
@@ -36,8 +37,8 @@ class OrderController
             "discount_price" => (float) $cart_data->discount,
             "shipping_charge" => (float) $cart_data->shipping_charge,
             "vat_price" => $cart_data->vat,
-            "shipping_address_id" => (int) $post_data['shipping_address_id'],
-            "payment_type" => (int) $post_data['payment_type'],
+            "shipping_address_id" => (int) $postData['shipping_address_id'],
+            "payment_type" => (int) $postData['payment_type'],
             "transaction_no" => time(),
         ];
         try {
@@ -58,7 +59,7 @@ class OrderController
             $this->pdo->rollBack();
             return ["status" => 0, "message" => "Something went Wrong !", "call_back" => 0];
         }
-        if ($post_data['payment_type'] == 1) {
+        if ($postData['payment_type'] == 1) {
             return [
                 "status" => 1, 
                 "message" => "Payment", 
