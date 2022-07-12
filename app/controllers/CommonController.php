@@ -33,15 +33,13 @@ class CommonController
     public static function getUserData()
     {
         if (isset($_SESSION['user_id'])) {
-            return ["user_id" => $_SESSION['user_id'], "anonimous_id" => ""];
+            return (object) ["user_id" => $_SESSION['user_id'], "anonimous_id" => "", "userId" => $_SESSION['user_id'], "anonimousId" => ""];
         } else {
             if (!isset($_COOKIE['anonimous_id'])) {
                 $anonimous_id = md5(time());
                 setcookie('anonimous_id', $anonimous_id, time() + (86400 * 30), "/");
-                return (object) ["user_id" => 0, "anonimous_id" => $anonimous_id];
-            } else {
-                return (object) ["user_id" => 0, "anonimous_id" => $_COOKIE['anonimous_id']];
-            }            
+            }         
+            return (object) ["user_id" => 0, "anonimous_id" => $_COOKIE['anonimous_id'], "userId" => $_SESSION['user_id'], "anonimousId" => $_COOKIE['anonimous_id']];
         }
     }
 

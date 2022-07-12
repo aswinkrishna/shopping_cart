@@ -36,6 +36,7 @@ class ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce
         'App\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/controllers/ProductController.php',
         'App\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
         'App\\Libraries\\Cart' => __DIR__ . '/../..' . '/app/libraries/Cart.php',
+        'App\\Models\\CartModel' => __DIR__ . '/../..' . '/app/models/CartModel.php',
         'ComposerAutoloaderInitf5f0078eae4f59c24511c2c9ded7d1ce' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInitf5f0078eae4f59c24511c2c9ded7d1ce' => __DIR__ . '/..' . '/composer/autoload_static.php',
