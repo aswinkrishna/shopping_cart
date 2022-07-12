@@ -4,17 +4,17 @@ if (!isset($_SESSION['user_id'])) {
 	header('Location:login');
 }
 
-use App\Controllers\CommonController;
 use App\Libraries\Cart;
-use App\Controllers\UserController;
+use App\Controllers\AddressController;
+use App\Controllers\CommonController;
 
 $contries = CommonController::getCountries();
 $states = CommonController::getStates();
 
 $cart = new Cart();
 $cart_data = $cart->getCart();
-$user = new UserController();
-$shipping_addresses = $user->getAllShippingAddresses();
+$address = new AddressController();
+$shipping_addresses = $address->getAllShippingAddresses();
 ?>
 	<section id="cart_items">
 		<div class="container">

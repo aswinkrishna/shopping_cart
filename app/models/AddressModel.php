@@ -31,6 +31,6 @@ class AddressModel
     {
         $query = $this->pdo->prepare("SELECT user_shipping_addresses.*, countries.country_name, states.state_name    from `user_shipping_addresses` LEFT JOIN countries on user_shipping_addresses.country_id = countries.id LEFT JOIN states on user_shipping_addresses.state_id = states.id where user_shipping_addresses.user_id = :user_id");
         $query->execute($condition);
-        $result = $query->fetchAll($this->pdo::FETCH_OBJ);
+        return $query->fetchAll($this->pdo::FETCH_OBJ);
     }
 }

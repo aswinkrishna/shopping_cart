@@ -2,10 +2,10 @@
 require_once './config.php';
 
 use App\Controllers\CartController;
-use App\Controllers\UserController;
+use App\Controllers\OrderController;
 
-$user = new UserController();
 $cart = new CartController();
+$order = new OrderController();
 
 if (!empty($_POST)) {
     $action = $_POST['action'];
@@ -27,7 +27,7 @@ if (!empty($_POST)) {
             echo json_encode($response);
             break;
         case 'place_order':            
-            $response = $cart->placeOrder($_POST);
+            $response = $order->placeOrder($_POST);
             echo json_encode($response);
             break;
         default:
