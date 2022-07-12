@@ -5,8 +5,8 @@ $(document).ready(function(){
         var qty = $(this).data('quantity');
         $.ajax({
             method: "POST",
-            url: "action.php",
-            data: {product_id:product_id, qty:qty, action_method:"addCartItem", class:"CartController"},
+            url: "cart_action.php",
+            data: {product_id:product_id, qty:qty, action:"addCartItem"},
             dataType: "json",
             success:function(response){
                 $.iaoAlert({msg: response.message, type: "success", mode: "light",});
@@ -48,8 +48,8 @@ $(document).ready(function(){
     {
         $.ajax({
             method: "POST",
-            url: "action.php",
-            data: {cart_id:cart_id, product_id:product_id, qty:quantity, action_method:action,  class:"CartController"},
+            url: "cart_action.php",
+            data: {cart_id:cart_id, product_id:product_id, qty:quantity, action:action},
             dataType: "json",
             success:function(response) {
                 var cart_html = "";
@@ -109,8 +109,8 @@ $(document).ready(function(){
             var shipping_address_id = $("[name=shiiping_address]:checked").val();
             $.ajax({
                 method: "POST",
-                url: "action.php",
-                data: {class:"OrderController", action_method: "placeOrder", payment_type: $("[name=payment_type]:checked").val(),shipping_address_id:shipping_address_id},
+                url: "order_action.php",
+                data: {action: "placeOrder", payment_type: $("[name=payment_type]:checked").val(),shipping_address_id:shipping_address_id},
                 dataType: "json",
                 success:function(response){
                     if (response.status == 1) {

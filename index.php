@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-include 'routes.php';
+include 'Router.php';
 require_once 'config.php';
 
 $request = $_SERVER['REQUEST_URI'];

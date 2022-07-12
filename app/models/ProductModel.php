@@ -1,13 +1,16 @@
 <?php
 namespace App\Models;
 
-use App\Core\CoreModel;
+use App\Config\Connection;
+use App\Controllers\CommonController;
 
-class ProductModel extends CoreModel
+class ProductModel
 {
+    private $pdo;
+
     public function __construct()
     {
-        parent::__construct();
+        $this->pdo = Connection::make();
     }
 
     public function getAllProducts()

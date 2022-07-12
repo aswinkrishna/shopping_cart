@@ -45,10 +45,10 @@ $(document).ready(function(){
     function loadUserAddresses()
     {
         $.ajax({
-            url: 'action.php',
+            url: 'user_action.php',
             type: "POST",
             dataType: 'json',
-            data: {class:"AddressController", action_method: "fetch"},
+            data: {form_action: "get_all_addresses"},
             success: function(response) {
                 var address_html = "";
                 if (response.status == 1) {
@@ -65,6 +65,7 @@ $(document).ready(function(){
                                             </label>
                                         </div>`;
                     });
+
                     $("#shipping_address_area").html(address_html);
                 }
             }            

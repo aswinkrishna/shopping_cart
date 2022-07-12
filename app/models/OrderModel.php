@@ -1,16 +1,17 @@
 <?php
 namespace App\Models;
 
+use App\Config\Connection;
 use App\Controllers\CommonController;
-use App\Core\CoreModel;
 
-class OrderModel extends CoreModel
+class OrderModel
 {
+    private $pdo;
     private $user;
 
     public function __construct()
     {
-        parent::__construct();
+        $this->pdo = Connection::make();
         $this->user = (object) CommonController::getUserData();
     }
 
