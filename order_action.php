@@ -1,14 +1,14 @@
 <?php
 require_once './config.php';
 
-use App\Controllers\CartController;
+use App\Controllers\OrderController;
 
-$cart = new CartController();
+$order = new OrderController();
 $action = $_POST['action'];
-if (!method_exists($cart,$action)) {
+if (!method_exists($order,$action)) {
     echo json_encode(['status'=>0,"message"=>"Something went wrong !"]);
+    die;
 }
-$response = $cart->{$action}();
+$response = $order->{$action}();
 echo json_encode($response);
-
 ?>
