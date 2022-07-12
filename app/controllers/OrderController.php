@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Config\Connection;
 use App\Controllers\CommonController;
 use App\Libraries\Cart;
 use App\Models\CartModel;
@@ -9,7 +8,6 @@ use App\Models\OrderModel;
 
 class OrderController
 {
-    private $pdo;
     private $user;
     private $cartModel;
     private $orderModel;
@@ -17,7 +15,6 @@ class OrderController
 
     public function __construct()
     {
-        $this->pdo = Connection::make();
         $this->user = (object) CommonController::getUserData();
         $this->cart = new Cart();
         $this->cartModel = new CartModel();
