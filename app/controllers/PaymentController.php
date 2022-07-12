@@ -18,7 +18,7 @@ class PaymentController
  
     public function stripePayment($jsonObj)
     {
-        $transaction_no = CommonController::decrypt($jsonObj->transaction_no);
+        $transaction_no = decrypt($jsonObj->transaction_no);
         // get order Data
         $query = $this->pdo->prepare("SELECT * from temp_orders where transaction_no = :transaction_no");
         $query->execute(["transaction_no" => $transaction_no]);

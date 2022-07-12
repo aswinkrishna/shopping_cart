@@ -38,7 +38,7 @@ class OrderController
             "total_price" => (float) $cart_data->grand_total,
             "discount_price" => (float) $cart_data->discount,
             "shipping_charge" => (float) $cart_data->shipping_charge,
-            "vat_price" => 0,
+            "vat_price" => $cart_data->vat,
             "shipping_address_id" => (int) $post_data['shipping_address_id'],
             "payment_type" => (int) $post_data['payment_type'],
             "transaction_no" => time(),
@@ -67,7 +67,7 @@ class OrderController
                 "message" => "Payment", 
                 "call_back" => 1, 
                 "call_back_url" => "payment", 
-                "transaction_no" => CommonController::encrypt($tempOrderData['transaction_no'])
+                "transaction_no" => encrypt($tempOrderData['transaction_no'])
             ];
         } else {
             if ($this->paymentSuccess($tempOrderData['transaction_no']) === true) {
@@ -76,7 +76,7 @@ class OrderController
                     "message" => "Order Successfull", 
                     "call_back" => 1, 
                     "call_back_url" => "success", 
-                    "transaction_no" => CommonController::encrypt($tempOrderData['transaction_no'])
+                    "transaction_no" => encrypt($tempOrderData['transaction_no'])
                 ];
             } else {
                 return ["status" => 0, "message" => "Order Failed", "call_back" => 0];
@@ -92,24 +92,24 @@ class OrderController
         } 
         try {
             $this->pdo->beginTransaction();
-            $temp_order_data = $this->orderModel->getTempOrder($tempOrderCondition);
+            $tempOrderData = $this->orderModel->getTempOrder($tempOrderCondition);
             $orderData = [
-                "order_no" => $temp_order_data->order_no,
-                "user_id" => (int) $temp_order_data->user_id,
-                "sub_total" => (float) $temp_order_data->sub_total,
-                "total_price" => (float) $temp_order_data->total_price,
-                "discount_price" => (float) $temp_order_data->discount_price,
-                "shipping_charge" => (float) $temp_order_data->shipping_charge,
-                "vat_price" => (float) $temp_order_data->vat_price,
-                "shipping_address_id" => (int) $temp_order_data->shipping_address_id,
-                "payment_type" => (int) $temp_order_data->payment_type,
-                "payment_status" => (int) ($temp_order_data->payment_type == 1) ? 1 : 0,
-                "transaction_no" => $temp_order_data->transaction_no,
+                "order_no" => $tempOrderData->order_no,
+                "user_id" => (int) $tempOrderData->user_id,
+                "sub_total" => (float) $tempOrderData->sub_total,
+                "total_price" => (float) $tempOrderData->total_price,
+                "discount_price" => (float) $tempOrderData->discount_price,
+                "shipping_charge" => (float) $tempOrderData->shipping_charge,
+                "vat_price" => (float) $tempOrderData->vat_price,
+                "shipping_address_id" => (int) $tempOrderData->shipping_address_id,
+                "payment_type" => (int) $tempOrderData->payment_type,
+                "payment_status" => (int) ($tempOrderData->payment_type == 1) ? 1 : 0,
+                "transaction_no" => $tempOrderData->transaction_no,
             ];
             $orderId = $this->orderModel->createOrder($orderData);
 
             // fetch temp products
-            $tempProducts = $this->orderModel->getTempOrderDetails(["order_id" => $temp_order_data->id]);
+            $tempProducts = $this->orderModel->getTempOrderDetails(["order_id" => $tempOrderData->id]);
             foreach ($tempProducts as $item) {
                 $ProductData = [
                     "order_id" => $orderId,

@@ -97,4 +97,21 @@ class CartModel
         $clear_cart_query = $this->pdo->prepare($sql);
         $clear_cart_query->execute($condition);
     }
+
+    public function getCart()
+    {
+        $sql = "SELECT cart.id as cart_id, cart.product_quantity, products.id as product_id, products.product_name, products.product_code, products.product_image, products.product_regular_price, products.product_sale_price, products.product_stock,(products.product_sale_price * cart.product_quantity) as product_total from cart LEFT JOIN products on cart.product_id = products.id where products.product_status = 1 and products.is_deleted = 0";
+        $condition = [];
+        if ($this->user->userId != 0) {
+            $sql .= " and cart.user_id = :user_id";
+            $condition = ["user_id" => $this->user->userId];
+        } else {
+            $sql .= " and cart.anonimous_id = :anonimous_id";
+            $condition = ["anonimous_id" => $this->user->anonimousId];
+        }
+        $sql .= " group by cart.product_id";
+        $cart_product_query = $this->pdo->prepare($sql);
+        $cart_product_query->execute($condition);
+        return $cart_product_query->fetchAll($this->pdo::FETCH_OBJ);
+    }
 }
