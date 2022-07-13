@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Controllers\CommonController;
 use App\Libraries\Cart;
+use App\Controllers\ProductController;
 use App\Models\CartModel;
 use App\Models\ProductModel;
 
@@ -12,10 +13,10 @@ class CartController
     private $cartModel;
     public $cart;
 
-    
     public function __construct()
     {
         $this->user = (object) CommonController::getUserData();
+        $this->product = new ProductController();
         $this->cartModel = new CartModel();
         $this->productModel = new ProductModel();
         $this->cart = new Cart();
@@ -25,7 +26,7 @@ class CartController
     {
         $productId = $_POST['product_id'];
         $qty = $_POST['qty'];
-        if ($response = $this->validatingProduct($productId)) {
+        if ($response = $this->product->validatingProduct($productId)) {
             return $response;
         }
 
@@ -89,17 +90,5 @@ class CartController
     {
         $this->cartModel->clearCart();
         return true;
-    }
-
-    public function validatingProduct($productId)
-    {
-        $condition = ["product_id" => $productId];
-        $productData =  $this->productModel->getProductData($condition); 
-        if (empty($productData)) {
-            return ["status" => "0", "message" => "Product is not available !"];  
-        }
-        if ($productData->product_stock <= 0) { 
-            return ["status" => "0", "message" => "Product is out of stock"];
-        } 
     }
 }
