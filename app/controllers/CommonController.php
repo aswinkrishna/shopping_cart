@@ -1,24 +1,25 @@
 <?php
 namespace App\Controllers;
 
-use App\Config\Connection;
+use App\Models\CommonModel;
 
 class CommonController
 {
-    public static function getCountries()
+    private $commonModel;
+    
+    public function __construct()
     {
-        $pdo = Connection::make();
-        $stmt = $pdo->prepare("SELECT * FROM countries");
-        $stmt->execute();
-        return $stmt->fetchAll($pdo::FETCH_OBJ);
+        $this->commonModel = new CommonModel();
+    }
+
+    public function getCountries()
+    {
+        return $this->commonModel->getCountries();        
     }
     
-    public static function getStates()
+    public function getStates()
     {
-        $pdo = Connection::make();
-        $stmt = $pdo->prepare("SELECT * FROM states");
-        $stmt->execute();
-        return $stmt->fetchAll($pdo::FETCH_OBJ);
+        return $this->commonModel->getStates();
     }
 
     public static function isLoggedIn()

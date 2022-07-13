@@ -71,7 +71,7 @@ class OrderController
                 "transaction_no" => encrypt($tempOrderData['transaction_no'])
             ];
         } else {
-            if ($this->paymentSuccess($tempOrderData['transaction_no']) === true) {
+            if ($this->completeOrder($tempOrderData['transaction_no']) === true) {
                 return [
                     "status" => 1, 
                     "message" => "Order Successfull", 
@@ -85,7 +85,7 @@ class OrderController
         }
     }
 
-    public function paymentSuccess($transactionNo = "")
+    public function completeOrder($transactionNo = "")
     {
         $tempOrderCondition = ['transaction_no' => $transactionNo];
         if ($this->orderModel->validateTempOrder($tempOrderCondition) == 0) {

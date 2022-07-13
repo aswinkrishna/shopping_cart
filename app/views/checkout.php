@@ -8,8 +8,9 @@ use App\Libraries\Cart;
 use App\Controllers\AddressController;
 use App\Controllers\CommonController;
 
-$contries = CommonController::getCountries();
-$states = CommonController::getStates();
+$commonController = new CommonController();
+$contries = $commonController->getCountries();
+$states = $commonController->getStates();
 
 $cart = new Cart();
 $cart_data = $cart->getCart();
