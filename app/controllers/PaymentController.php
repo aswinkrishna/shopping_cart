@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\CommonController;
-use App\Controllers\Stripe;
+use App\Libraries\Stripe;
 use App\Models\PaymentModel;
 
 class PaymentController

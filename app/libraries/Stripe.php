@@ -1,7 +1,7 @@
 <?php
-namespace App\Controllers;
+namespace App\Libraries;
 
-use App\Controllers\Payment;
+use App\Interface\Payment;
 use App\Models\OrderModel;
 
 class Stripe implements Payment

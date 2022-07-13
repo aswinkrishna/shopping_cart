@@ -40,7 +40,7 @@ class CommonController
                 $anonimous_id = md5(time());
                 setcookie('anonimous_id', $anonimous_id, time() + (86400 * 30), "/");
             }         
-            return (object) ["user_id" => 0, "anonimous_id" => $_COOKIE['anonimous_id'], "userId" => $_SESSION['user_id'], "anonimousId" => $_COOKIE['anonimous_id']];
+            return (object) ["user_id" => 0, "anonimous_id" => $_COOKIE['anonimous_id'], "userId" => 0, "anonimousId" => $_COOKIE['anonimous_id']];
         }
     }
 

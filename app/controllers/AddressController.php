@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Config\Connection;
 use App\Models\AddressModel;
 
 class AddressController

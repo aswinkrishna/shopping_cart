@@ -1,17 +1,14 @@
 <?php
 namespace App\Controllers;
 
-use App\Config\Connection;
 use App\Models\UserModel;
 
 class UserController 
 {
-    private $pdo;
     private $userModel;
 
     public function __construct()
     {
-        $this->pdo = Connection::make();
         $this->userModel = new UserModel();
     }
 

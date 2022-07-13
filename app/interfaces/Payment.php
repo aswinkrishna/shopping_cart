@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace App\Interface;
 
 interface Payment
 {
