@@ -3,7 +3,8 @@ include('includes/__header.php');
 
 use App\Controllers\CommonController;
 
-$contries = CommonController::getCountries();
+$commonController = new CommonController();
+$contries = $commonController->getCountries();
 ?>
 	<section id="form"><!--form-->
 		<div class="container">

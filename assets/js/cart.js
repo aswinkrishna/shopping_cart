@@ -6,7 +6,7 @@ $(document).ready(function(){
         $.ajax({
             method: "POST",
             url: "action.php",
-            data: {product_id:product_id, qty:qty, action_method:"addCartItem", class:"CartController"},
+            data: {product_id:product_id, qty:qty, action_method:"add", class:"CartController"},
             dataType: "json",
             success:function(response){
                 $.iaoAlert({msg: response.message, type: "success", mode: "light",});
@@ -22,7 +22,7 @@ $(document).ready(function(){
         var cart_id = $(this).data('cart-id');
         var quantity = $(this).data('quantity');
         $(this).parent().find(".cart_quantity_input").val(purchase_count);
-        loadCart(cart_id, product_id, quantity, "increaseCartItem");
+        loadCart(cart_id, product_id, quantity, "update","plus");
     });
 
     // decrease cart quantity
@@ -33,23 +33,23 @@ $(document).ready(function(){
         var cart_id = $(this).data('cart-id');
         var quantity = $(this).data('quantity');
         $(this).parent().find(".cart_quantity_input").val(purchase_count);
-        loadCart(cart_id, product_id, quantity, "reduceCartItem");
+        loadCart(cart_id, product_id, quantity, "update","minus");
     });
 
     // remove product from cart
     $("body").delegate(".cart_quantity_delete", "click", function() {
         var product_id = $(this).data('product-id');
         var cart_id = $(this).data('cart-id');
-        loadCart(cart_id, product_id, 0, "removeCartItem");
+        loadCart(cart_id, product_id, 0, "delete");
     });
 
     // load cart
-    function loadCart(cart_id, product_id, quantity = 1, action)
+    function loadCart(cart_id, product_id, quantity = 1, action,operatiion = "")
     {
         $.ajax({
             method: "POST",
             url: "action.php",
-            data: {cart_id:cart_id, product_id:product_id, qty:quantity, action_method:action,  class:"CartController"},
+            data: {cart_id:cart_id, product_id:product_id, qty:quantity, action_method:action,  class:"CartController", operatiion:operatiion},
             dataType: "json",
             success:function(response) {
                 var cart_html = "";
